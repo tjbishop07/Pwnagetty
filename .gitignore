@@ -81,6 +81,9 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+hccapx
+pcap
+pmkid
 
 # Gatsby files
 .cache/
@@ -104,3 +107,4 @@ dist
 .tern-port
 package-lock.json
 db.json
+settings.json

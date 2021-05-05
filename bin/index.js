@@ -4,6 +4,7 @@ const fs = require('fs');
 const SftpClient = require('ssh2-sftp-client');
 const commander = require('commander')
 const { exec } = require('child_process');
+const settings = require('../settings.json');
 
 //====================================
 // SFTP Configuration - CHANGE THESE
@@ -11,8 +12,8 @@ const { exec } = require('child_process');
 const config = {
     host: "10.0.0.2", // Set your Pwnagotchi IP
     username: "pi", // Set your SSH username
-    password: "raspberry", // Set your SSH password
-    handshakeDir: "/home/pi/handshakes/", // Set your handshake directory on the Pwnagotchi
+    password: settings.development.ssh_key, // Set your SSH password
+    handshakeDir: "/home/pi/handshakes", // Set your handshake directory on the Pwnagotchi
     port: 22,
     localDir: "./pcap/",
     database: path.join(__dirname, "./db.json"),
