@@ -10,7 +10,7 @@ const settings = require('../settings.json');
 // SFTP Configuration - CHANGE THESE
 //====================================
 const config = {
-    host: "10.0.0.2", // Set your Pwnagotchi IP
+    host: settings.development.ip_or_hostname, // Set your Pwnagotchi IP
     username: "pi", // Set your SSH username
     password: settings.development.ssh_key, // Set your SSH password
     handshakeDir: "/home/pi/handshakes", // Set your handshake directory on the Pwnagotchi
