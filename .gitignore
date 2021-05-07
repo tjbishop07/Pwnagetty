@@ -84,6 +84,7 @@ dist
 hccapx
 pcap
 pmkid
+geojson
 
 # Gatsby files
 .cache/
