@@ -228,29 +228,31 @@ async function copyGeoJSON() {
   let files = await readDir(config.localDir);
   let geojson_results = [];
   for (let file of files) {
-    let file_extension = file.substring(file.indexOf("."));
-    if (file_extension === ".gps.json") {
-      await parseGPSFile(path.join(config.localGeoJSONDir, file)).then(
-        (fileJSON) => {
-          let getjson_formatted = `{ 
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [${fileJSON.Longitude}, ${fileJSON.Latitude}]
-              },
-              "properties": {
-                  "name": "${file.substring(0, file.indexOf("_"))}"
-              }
-          }`;
-          geojson_results.push(getjson_formatted);
-          fs.copyFileSync(
-            path.join(config.localDir, file),
-            path.join(config.localGeoJSONDir, file)
-          );
-          fs.rmSync(path.join(config.localDir, file));
-        }
-      );
-    }
+    try {
+      let file_extension = file.substring(file.indexOf("."));
+      if (file_extension === ".gps.json") {
+        await parseGPSFile(path.join(config.localGeoJSONDir, file)).then(
+          (fileJSON) => {
+            let getjson_formatted = `{ 
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [${fileJSON.Longitude}, ${fileJSON.Latitude}]
+                  },
+                  "properties": {
+                      "name": "${file.substring(0, file.indexOf("_"))}"
+                  }
+              }`;
+            geojson_results.push(getjson_formatted);
+            fs.copyFileSync(
+              path.join(config.localDir, file),
+              path.join(config.localGeoJSONDir, file)
+            );
+            fs.rmSync(path.join(config.localDir, file));
+          }
+        );
+      }
+    } catch {}
   }
   fs.writeFileSync(
     path.join(config.localGeoJSONDir, "geojson_db.json"),
